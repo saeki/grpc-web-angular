@@ -1,6 +1,6 @@
 <label>Name:
-  <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}"/>
+  <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" [disabled]="loading"/>
 </label>
-<button (click)="send()">Send</button>
+<button (click)="send()" [disabled]="loading">Send</button>
 
 <h3>{{message}}</h3>

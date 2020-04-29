@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { GreeterClient } from '../proto/helloworld_pb_service';
+import { Observable } from 'rxjs';
 import { HelloReply, HelloRequest } from '../proto/helloworld_pb';
+import { GreeterClient } from '../proto/helloworld_pb_service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,19 @@ export class ApiService {
   constructor() {
   }
 
-  sayHello(name: string): Promise<string> {
-    return new Promise((resolve, reject) => {
+  sayHello(name: string) {
+    return new Observable<string>((observer) => {
       const request = new HelloRequest();
       request.setName(name);
       console.log(request);
       this.client.sayHello(request, (err, response: HelloReply) => {
         if (err) {
-          return reject(err);
+          observer.error(err);
+        } else {
+          console.log(response);
+          observer.next(response.getMessage());
         }
-        console.log(response);
-        resolve(response.getMessage());
+        observer.complete();
       });
     });
   }
