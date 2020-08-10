@@ -7,7 +7,7 @@ import { HelloReply, HelloRequest } from '../proto/helloworld_pb';
 })
 export class ApiService {
 
-  private client = new GreeterClient('http://localhost:8080');
+  private client = new GreeterClient('');
 
   constructor() {
   }
